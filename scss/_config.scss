@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins|Raleway:300,400,700|Roboto&display=swap');
+
+// VARIABLES
+$primary-color: #272727;
+$secondary-color: #ffd904;
+
+// MAPS - ENTERED AS KEY VALUE PAIRS
+$font-weights: (
+  'regular': 400,
+  'medium': 500,
+  'bold': 700
+);
+
+$font-family: (
+  'primary': Roboto,
+  'secondary': Poppins,
+  'backup': Raleway
+);
+
+// GLOBAL RESETS
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// MIXINS AND FUNCTIONS
+@function weight($weight-name) {
+  @return map-get($font-weights, $weight-name);
+}
+
+@function family($family-name) {
+  @return map-get($font-family, $family-name);
+}
+
+@function set-text-color($color) {
+  @if (lightness($color) > 40%) {
+    @return #000;
+  } @else {
+    @return #fff;
+  }
+}
+
+@mixin transition-ease {
+  transition: all 0.5s ease-in-out;
+}
