@@ -44,6 +44,84 @@
     &.open {
       transform: rotate(360deg);
       background: transparent;
+
+      // Target the top bar of hamburger menu
+      &::before {
+        transform: rotate(45deg) translate(5px, 8px);
+      }
+
+      // Target the bottom bar of hamburger menu
+      &::after {
+        width: 28px;
+        transform: rotate(-45deg) translate(3px, -7px);
+      }
     }
+  }
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  opacity: 0.98;
+  visibility: hidden;
+
+  &.open {
+    visibility: visible;
+  }
+
+  .menu-nav {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    background: $primary-color;
+    list-style-type: none;
+    padding-right: 1rem;
+
+    // This means the position of the menu will start off the page at the top.
+    transform: translateY(-100%);
+    @include transition-ease;
+
+    // When we click the hamburger button we want the menu to come in from the top
+    &.open {
+      transform: translateY(0);
+    }
+
+    &__item {
+      transform: translateX(100vw);
+      @include transition-ease;
+
+      &.open {
+        transform: translateX(0);
+      }
+
+      &.active > a {
+        color: $secondary-color;
+      }
+    }
+
+    &__link {
+      display: inline-block;
+      font-size: 2rem;
+      text-transform: uppercase;
+      padding: 2rem 0;
+      font-weight: weight(regular);
+      @include transition-ease;
+
+      &:hover {
+        color: $secondary-color;
+      }
+    }
+  }
+}
+
+@for $i from 1 through 4 {
+  // This will iterate through each link in the menu
+  .menu-nav__item:nth-child(#{$i}) {
+    transition-delay: ($i * 0.1s) + 0.15s;
   }
 }
